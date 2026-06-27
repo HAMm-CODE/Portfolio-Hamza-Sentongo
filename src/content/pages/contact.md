@@ -1,14 +1,13 @@
 ---
-title: Get in touch
+title: Contact
 seo:
-  title: Contact
-  description: Get in touch through email or social media! Let me know how I can help.
+  title: Contact Hamza Sentongo
+  description: Contact Hamza Sentongo for junior data engineering roles, internships, thesis collaborations, and data engineering projects.
 ---
 
-Thank you for reaching out! Whether you have a question, a suggestion, or just want to share your thoughts, I'm all ears. Feel free to get in touch through any of the methods below:
+I am open to **junior data engineering roles**, internships, thesis-related industry projects, and collaborations involving data pipelines, Spark, cloud data platforms, and analytics engineering.
 
-_Email:_
-Feel free to drop me an email at [example@example.com](mailto:example@example.com), and I'll do my best to respond as soon as possible.
-
-_Social Media:_
-Connect with me on social media as well. Find me on [Twitter](https://twitter.com) or [LinkedIn](https://www.linkedin.com/).
+**Email:** [hamza.sentongo@tuni.fi](mailto:hamza.sentongo@tuni.fi)  
+**GitHub:** [github.com/HAMm-CODE](https://github.com/HAMm-CODE)  
+**LinkedIn:** [linkedin.com/in/hamza-sentongo-55483a243](https://www.linkedin.com/in/hamza-sentongo-55483a243)  
+**Resume:** [Download PDF](/resume.pdf)
