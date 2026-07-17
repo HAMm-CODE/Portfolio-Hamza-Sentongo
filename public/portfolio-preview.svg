@@ -1,8 +1,0 @@
-<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#0f172a"/>
-  <text x="100" y="220" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#f8fafc">Hamza Sentongo</text>
-  <text x="100" y="310" font-family="Arial, sans-serif" font-size="38" fill="#cbd5e1">Associate Data Engineer</text>
-  <text x="100" y="385" font-family="Arial, sans-serif" font-size="30" fill="#94a3b8">Python · SQL · PySpark · Databricks · Delta Lake</text>
-  <rect x="100" y="455" width="250" height="64" rx="32" fill="#f8fafc"/>
-  <text x="225" y="497" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">View Projects</text>
-</svg>
