@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hamza Sentongo — Data Engineer</title>
+<meta name="description" content="Hamza Sentongo is an early-career data engineer in Tampere, Finland, building reliable ETL/ELT pipelines with Python, SQL, PySpark, Databricks, Delta Lake and Azure." />
+<meta property="og:title" content="Hamza Sentongo — Data Engineer" />
+<meta property="og:description" content="Reliable pipelines from raw data to datasets people trust. Python · SQL · PySpark · Databricks · Delta Lake · Azure." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&family=Instrument+Sans:ital,wght@0,400..600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   HAMZA SENTONGO — PORTFOLIO
+   A study in shades of green: pine → moss → sage → mint → emerald
+   Display: Bricolage Grotesque · Body: Instrument Sans · Data: IBM Plex Mono
+   ============================================================ */
+
+:root {
+  /* the greens, dark → light */
+  --pine-950: #0a120e;   /* page ground        */
+  --pine-900: #0e1a13;   /* alternate band     */
+  --pine-800: #142219;   /* card surface       */
+  --pine-700: #1c2f23;   /* raised / hover     */
+  --line:     #26402f;   /* hairlines          */
+  --moss:     #7fa78d;   /* muted labels       */
+  --sage:     #c4d8ca;   /* body text          */
+  --mint:     #bdedd0;   /* soft highlight     */
+  --emerald:  #3fce8b;   /* the accent         */
+  --emerald-deep: #1f9c63;
+  --paper:    #f0f7f1;   /* headlines          */
+
+  --font-display: "Bricolage Grotesque", Georgia, serif;
+  --font-body: "Instrument Sans", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --maxw: 1120px;
+  --radius: 14px;
+  --ease: cubic-bezier(.22,.8,.28,1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--pine-950);
+  color: var(--sage);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--emerald); color: var(--pine-950); }
+
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--emerald);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: min(var(--maxw), 100% - 3rem);
+  margin-inline: auto;
+}
+
+/* ---------- ambient background ---------- */
+.glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(560px 400px at 82% -6%, rgba(63,206,139,.10), transparent 68%),
+    radial-gradient(720px 560px at -12% 42%, rgba(31,156,99,.07), transparent 70%),
+    var(--pine-950);
+}
+
+/* ---------- scroll progress ---------- */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--emerald-deep), var(--emerald));
+  z-index: 60;
+}
+
+/* ---------- nav ---------- */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(10,18,14,.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease);
+}
+header.scrolled { border-bottom-color: var(--line); }
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1.05rem;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--paper);
+  letter-spacing: .01em;
+}
+.brand em {
+  font-style: normal;
+  color: var(--emerald);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.9rem;
+  font-size: .92rem;
+}
+.nav-links a { color: var(--moss); transition: color .25s; position: relative; }
+.nav-links a:hover { color: var(--mint); }
+.nav-links a:not(.btn)::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%;
+  height: 1px;
+  background: var(--emerald);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s var(--ease);
+}
+.nav-links a:not(.btn):hover::after { transform: scaleX(1); }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .68rem 1.25rem;
+  border-radius: 999px;
+  font-size: .92rem;
+  font-weight: 500;
+  border: 1px solid var(--line);
+  color: var(--mint);
+  transition: transform .25s var(--ease), background .25s, border-color .25s, color .25s;
+}
+.btn:hover { transform: translateY(-2px); border-color: var(--emerald); }
+.btn-solid {
+  background: var(--emerald);
+  border-color: var(--emerald);
+  color: #06130c;
+}
+.btn-solid:hover { background: var(--mint); border-color: var(--mint); }
+.btn svg { width: 15px; height: 15px; }
+
+/* ---------- hero ---------- */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  align-items: center;
+  gap: 3.5rem;
+  padding-top: 6.5rem;
+  padding-bottom: 3rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--moss);
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px; height: 1px;
+  background: var(--emerald);
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.7rem, 6.2vw, 4.7rem);
+  font-weight: 560;
+  line-height: 1.04;
+  letter-spacing: -.022em;
+  color: var(--paper);
+  margin: 1.3rem 0 1.5rem;
+  font-variation-settings: "opsz" 60;
+}
+.hero h1 .accent { color: var(--emerald); }
+
+.hero p.lede {
+  max-width: 33rem;
+  color: var(--sage);
+  font-size: 1.1rem;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .9rem;
+  margin-top: 2.1rem;
+}
+
+.status {
+  margin-top: 2.4rem;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--moss);
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--emerald);
+  animation: pulse 2.2s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(63,206,139,.45); }
+  70%  { box-shadow: 0 0 0 9px rgba(63,206,139,0); }
+  100% { box-shadow: 0 0 0 0 rgba(63,206,139,0); }
+}
+
+/* staggered entrance */
+.rise {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: rise .8s var(--ease) forwards;
+}
+@keyframes rise { to { opacity: 1; transform: none; } }
+.d1 { animation-delay: .08s; }
+.d2 { animation-delay: .18s; }
+.d3 { animation-delay: .28s; }
+.d4 { animation-delay: .38s; }
+.d5 { animation-delay: .5s; }
+
+/* ---------- pipeline card (the signature) ---------- */
+.pipeline-card {
+  background: linear-gradient(160deg, var(--pine-800), var(--pine-900));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem 1.2rem;
+  box-shadow: 0 30px 70px -30px rgba(0,0,0,.6);
+}
+.pipeline-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  color: var(--moss);
+  padding-bottom: .9rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: .4rem;
+}
+.badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--emerald);
+}
+.badge-live .dot { width: 6px; height: 6px; }
+
+.pipeline-svg text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  fill: var(--moss);
+  letter-spacing: .06em;
+}
+.pipeline-svg .node-label { fill: var(--mint); font-size: 11.5px; }
+.pipe {
+  stroke: var(--line);
+  stroke-width: 1.5;
+  fill: none;
+}
+.pipe-flow {
+  stroke: var(--emerald);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 3 9;
+  opacity: .85;
+  animation: flow 1.2s linear infinite;
+}
+@keyframes flow { to { stroke-dashoffset: -12; } }
+.node-box {
+  fill: var(--pine-700);
+  stroke: var(--line);
+  rx: 9;
+}
+.packet { fill: var(--emerald); filter: drop-shadow(0 0 5px rgba(63,206,139,.9)); }
+.src { fill: var(--moss); }
+.ring {
+  fill: none;
+  stroke: var(--emerald);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring 3.4s ease-out infinite;
+}
+@keyframes ring {
+  0%   { opacity: .55; transform: scale(.55); }
+  60%  { opacity: 0;   transform: scale(1.5); }
+  100% { opacity: 0;   transform: scale(1.5); }
+}
+
+.pipeline-log {
+  margin-top: .9rem;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  color: var(--sage);
+  min-height: 1.4em;
+  display: flex;
+  gap: .5rem;
+  align-items: baseline;
+}
+.pipeline-log .prompt { color: var(--emerald); }
+.caret {
+  display: inline-block;
+  width: 7px; height: 13px;
+  background: var(--emerald);
+  animation: blink 1s steps(1) infinite;
+  transform: translateY(2px);
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---------- marquee ---------- */
+.marquee {
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+  padding-block: .95rem;
+  background: var(--pine-900);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .2em;
+  color: var(--moss);
+  white-space: nowrap;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track span b { color: var(--emerald); font-weight: 400; margin-right: 3rem; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---------- sections ---------- */
+.section { padding-block: 7rem; }
+.section-alt { background: var(--pine-900); border-block: 1px solid var(--line); }
+
+.section-head { margin-bottom: 3.2rem; }
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.6vw, 2.7rem);
+  font-weight: 550;
+  letter-spacing: -.018em;
+  color: var(--paper);
+  margin-top: .9rem;
+}
+
+/* scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .8s var(--ease), transform .8s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ---------- about ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-grid p + p { margin-top: 1.2rem; }
+.about-grid strong { color: var(--mint); font-weight: 500; }
+
+.facts {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--pine-800);
+  padding: 1.6rem 1.7rem;
+  font-size: .95rem;
+}
+.facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: .8rem;
+}
+.facts div + div { border-top: 1px solid var(--line); }
+.facts dt { color: var(--moss); font-family: var(--font-mono); font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; padding-top: .15em; }
+.facts dd { color: var(--mint); text-align: right; }
+.facts .open { display: inline-flex; align-items: center; gap: .5rem; color: var(--emerald); }
+
+/* ---------- stack ---------- */
+.stack-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+  padding-block: 1.7rem;
+  border-top: 1px solid var(--line);
+  align-items: baseline;
+}
+.stack-row:last-of-type { border-bottom: 1px solid var(--line); }
+.stack-row h3 {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--moss);
+}
+.chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.chip {
+  font-size: .9rem;
+  color: var(--mint);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .42rem 1rem;
+  transition: border-color .25s, background .25s, color .25s, transform .25s var(--ease);
+}
+.chip:hover {
+  border-color: var(--emerald);
+  background: rgba(63,206,139,.08);
+  transform: translateY(-2px);
+}
+
+/* ---------- projects ---------- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--pine-800);
+  padding: 1.8rem 1.7rem 1.6rem;
+  transition: transform .35s var(--ease), border-color .35s, box-shadow .35s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(63,206,139,.55);
+  box-shadow: 0 24px 50px -24px rgba(63,206,139,.22);
+}
+.card-num {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  color: var(--emerald);
+  letter-spacing: .15em;
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 550;
+  color: var(--paper);
+  letter-spacing: -.01em;
+  margin: .9rem 0 .7rem;
+}
+.card p { font-size: .95rem; flex: 1; }
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-top: 1.3rem;
+}
+.tags span {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: var(--moss);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: .28rem .55rem;
+}
+.card-link {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--line);
+  font-size: .9rem;
+  color: var(--emerald);
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+}
+.card-link .arrow { transition: transform .3s var(--ease); }
+.card:hover .card-link .arrow { transform: translate(3px,-3px); }
+
+/* ---------- credentials ---------- */
+.creds { border-top: 1px solid var(--line); }
+.cred {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-block: 1.6rem;
+  border-bottom: 1px solid var(--line);
+  transition: background .3s;
+}
+.cred:hover { background: rgba(63,206,139,.045); }
+.cred h3 { font-family: var(--font-display); font-weight: 550; font-size: 1.12rem; color: var(--paper); }
+.cred .issuer { color: var(--moss); font-size: .92rem; margin-top: .2rem; }
+.cred .year { font-family: var(--font-mono); font-size: .8rem; color: var(--emerald); }
+
+/* ---------- contact ---------- */
+.contact { text-align: center; padding-block: 8.5rem 6rem; }
+.contact h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 560;
+  letter-spacing: -.02em;
+  line-height: 1.06;
+  color: var(--paper);
+  max-width: 15em;
+  margin-inline: auto;
+}
+.contact h2 .accent { color: var(--emerald); }
+.email-link {
+  display: inline-block;
+  margin-top: 2.2rem;
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  color: var(--mint);
+  position: relative;
+  padding-bottom: 6px;
+}
+.email-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--emerald);
+  transform: scaleX(.25);
+  transform-origin: left;
+  transition: transform .45s var(--ease);
+}
+.email-link:hover::after { transform: scaleX(1); }
+.contact-cta { display: flex; justify-content: center; gap: .9rem; margin-top: 2.6rem; flex-wrap: wrap; }
+
+footer {
+  border-top: 1px solid var(--line);
+  padding-block: 2rem;
+  font-size: .84rem;
+  color: var(--moss);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+footer .mono { font-family: var(--font-mono); font-size: .74rem; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 7.5rem; min-height: 0; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .stack-row { grid-template-columns: 1fr; gap: .9rem; }
+  .section { padding-block: 5rem; }
+  .nav-links a:not(.btn) { display: none; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .reveal { opacity: 1; transform: none; animation: none; transition: none; }
+  .marquee-track, .pipe-flow, .ring, .dot, .caret { animation: none; }
+  .ring { opacity: 0; }
+  .card:hover, .btn:hover, .chip:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ================= NAV ================= -->
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top">hamza<em>.</em>sentongo</a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"/></svg>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<main>
+<section class="wrap hero">
+  <div>
+    <p class="eyebrow rise d1">Data Engineer · Tampere, Finland</p>
+    <h1 class="rise d2">Raw data in.<br/>Datasets people <span class="accent">trust</span> out.</h1>
+    <p class="lede rise d3">I'm Hamza Sentongo — I build ETL/ELT pipelines with <strong style="color:var(--mint);font-weight:500">Python, SQL and PySpark</strong>, and shape them into reliable tables on Databricks, Delta Lake and Azure.</p>
+    <div class="hero-cta rise d4">
+      <a class="btn btn-solid" href="#projects">View projects</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+    </div>
+    <p class="status rise d5"><span class="dot"></span> open to junior &amp; associate data roles</p>
+  </div>
+
+  <!-- signature: a live pipeline, always running -->
+  <div class="pipeline-card rise d3" aria-label="Animated illustration of a data pipeline">
+    <div class="pipeline-head">
+      <span>pipeline / daily_sales.py</span>
+      <span class="badge-live"><span class="dot"></span>running</span>
+    </div>
+    <svg class="pipeline-svg" viewBox="0 0 560 300" role="img" aria-label="Sources flowing through ingest, transform and serve stages into a Delta table">
+      <!-- connectors (static) -->
+      <path class="pipe" d="M46 78  C 86 78, 92 150, 126 150" />
+      <path class="pipe" d="M46 150 H 126" />
+      <path class="pipe" d="M46 222 C 86 222, 92 150, 126 150" />
+      <path class="pipe" d="M214 150 H 254" />
+      <path class="pipe" d="M346 150 H 386" />
+      <path class="pipe" d="M478 150 H 512" />
+      <!-- connectors (animated flow) -->
+      <path class="pipe-flow" d="M46 78  C 86 78, 92 150, 126 150" />
+      <path class="pipe-flow" d="M46 150 H 126" />
+      <path class="pipe-flow" d="M46 222 C 86 222, 92 150, 126 150" />
+      <path class="pipe-flow" d="M214 150 H 254" />
+      <path class="pipe-flow" d="M346 150 H 386" />
+      <path class="pipe-flow" d="M478 150 H 512" />
+
+      <!-- packets travelling the spine (drawn under nodes) -->
+      <circle class="packet" r="3.4">
+        <animateMotion dur="4.2s" repeatCount="indefinite" path="M46 150 H 520" />
+      </circle>
+      <circle class="packet" r="3.4">
+        <animateMotion dur="4.2s" begin="1.4s" repeatCount="indefinite" path="M46 150 H 520" />
+      </circle>
+      <circle class="packet" r="3.4">
+        <animateMotion dur="4.2s" begin="2.8s" repeatCount="indefinite" path="M46 150 H 520" />
+      </circle>
+
+      <!-- sources -->
+      <circle class="src" cx="46" cy="78"  r="5"/>
+      <circle class="src" cx="46" cy="150" r="5"/>
+      <circle class="src" cx="46" cy="222" r="5"/>
+      <text x="46" y="60"  text-anchor="middle">csv</text>
+      <text x="46" y="133" text-anchor="middle">api</text>
+      <text x="46" y="248" text-anchor="middle">events</text>
+
+      <!-- stage nodes -->
+      <rect class="node-box" x="126" y="128" width="88" height="44" rx="9"/>
+      <text class="node-label" x="170" y="155" text-anchor="middle">ingest</text>
+      <circle class="ring" cx="170" cy="150" r="34"/>
+
+      <rect class="node-box" x="254" y="128" width="92" height="44" rx="9"/>
+      <text class="node-label" x="300" y="155" text-anchor="middle">transform</text>
+      <circle class="ring" cx="300" cy="150" r="34" style="animation-delay:1.1s"/>
+
+      <rect class="node-box" x="386" y="128" width="92" height="44" rx="9"/>
+      <text class="node-label" x="432" y="155" text-anchor="middle">serve</text>
+      <circle class="ring" cx="432" cy="150" r="34" style="animation-delay:2.2s"/>
+
+      <!-- sink: delta table -->
+      <g>
+        <rect x="512" y="128" width="30" height="44" rx="6" fill="none" stroke="var(--emerald)" stroke-width="1.5"/>
+        <line x1="517" y1="143" x2="537" y2="143" stroke="var(--emerald)" stroke-width="1.5"/>
+        <line x1="517" y1="157" x2="537" y2="157" stroke="var(--emerald)" stroke-width="1.5"/>
+      </g>
+      <text x="527" y="192" text-anchor="middle">delta</text>
+    </svg>
+    <div class="pipeline-log">
+      <span class="prompt">$</span>
+      <span id="log">spark-submit daily_sales.py</span>
+      <span class="caret" aria-hidden="true"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>PYTHON <b>·</b> SQL <b>·</b> PYSPARK <b>·</b> DATABRICKS <b>·</b> DELTA LAKE <b>·</b> AZURE <b>·</b> AIRFLOW <b>·</b> DBT <b>·</b> KAFKA <b>·</b> DOCKER <b>·</b> GITHUB ACTIONS <b>·</b></span>
+    <span>PYTHON <b>·</b> SQL <b>·</b> PYSPARK <b>·</b> DATABRICKS <b>·</b> DELTA LAKE <b>·</b> AZURE <b>·</b> AIRFLOW <b>·</b> DBT <b>·</b> KAFKA <b>·</b> DOCKER <b>·</b> GITHUB ACTIONS <b>·</b></span>
+  </div>
+</div>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">About</p>
+      <h2>Quiet infrastructure, done carefully.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm an early-career data engineer in Tampere, Finland, finishing an MSc in Computer Science and Electrical Engineering at <strong>Tampere University</strong>. My day-to-day is building ETL/ELT workflows, benchmarking storage formats, and exploring batch and streaming systems on Databricks.</p>
+        <p>What pulled me into this field is the link between <strong>data quality and everything downstream</strong> — models, dashboards, decisions. Good data work is invisible when it's right and expensive when it's wrong, and I like being responsible for that difference.</p>
+        <p>Right now I'm deepening my Azure and Delta Lake practice and looking for a team in Finland where I can own pipelines end to end.</p>
+      </div>
+      <dl class="facts reveal">
+        <div><dt>Role</dt><dd>Associate Data Engineer</dd></div>
+        <div><dt>Base</dt><dd>Tampere, FI</dd></div>
+        <div><dt>Degree</dt><dd>MSc CS &amp; EE (in progress)</dd></div>
+        <div><dt>Focus</dt><dd>ETL/ELT · Lakehouse</dd></div>
+        <div><dt>Status</dt><dd><span class="open"><span class="dot"></span>Open to work</span></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STACK ================= -->
+<section class="section section-alt" id="stack">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Stack</p>
+      <h2>Tools I reach for.</h2>
+    </div>
+    <div class="reveal">
+      <div class="stack-row">
+        <h3>Core</h3>
+        <div class="chips"><span class="chip">Python</span><span class="chip">SQL</span></div>
+      </div>
+      <div class="stack-row">
+        <h3>Processing</h3>
+        <div class="chips"><span class="chip">PySpark</span><span class="chip">Structured Streaming</span><span class="chip">Pandas</span></div>
+      </div>
+      <div class="stack-row">
+        <h3>Platform</h3>
+        <div class="chips"><span class="chip">Databricks</span><span class="chip">Delta Lake</span><span class="chip">Azure</span><span class="chip">Blob Storage</span></div>
+      </div>
+      <div class="stack-row">
+        <h3>Pipeline &amp; Ops</h3>
+        <div class="chips"><span class="chip">Airflow</span><span class="chip">dbt</span><span class="chip">Kafka</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROJECTS ================= -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Selected work</p>
+      <h2>Measured, not assumed.</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- TODO: point each card at its exact repo URL -->
+      <a class="card reveal" href="https://github.com/HAMm-CODE" target="_blank" rel="noopener">
+        <span class="card-num">01 / benchmark</span>
+        <h3>Delta Data Formats Benchmarking</h3>
+        <p>CSV vs Parquet vs Delta Lake on Databricks — read/write performance, storage footprint and schema-evolution behaviour, measured on real workloads instead of taken on faith.</p>
+        <div class="tags"><span>PySpark</span><span>Databricks</span><span>Delta Lake</span></div>
+        <span class="card-link">View on GitHub <span class="arrow">↗</span></span>
+      </a>
+
+      <a class="card reveal" href="https://github.com/HAMm-CODE" target="_blank" rel="noopener">
+        <span class="card-num">02 / streaming</span>
+        <h3>Spark ML &amp; Streaming</h3>
+        <p>Structured Streaming meets machine learning for retail sales analysis — one pipeline that turns incoming events into model-ready features and predictions.</p>
+        <div class="tags"><span>PySpark</span><span>Streaming</span><span>MLlib</span></div>
+        <span class="card-link">View on GitHub <span class="arrow">↗</span></span>
+      </a>
+
+      <a class="card reveal" href="https://github.com/HAMm-CODE" target="_blank" rel="noopener">
+        <span class="card-num">03 / etl</span>
+        <h3>Top Banks ETL Pipeline</h3>
+        <p>A classic extract–transform–load run: pull bank market-cap data, convert values across currencies, and land clean results in CSV and SQLite.</p>
+        <div class="tags"><span>Python</span><span>Pandas</span><span>SQLite</span></div>
+        <span class="card-link">View on GitHub <span class="arrow">↗</span></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= CREDENTIALS ================= -->
+<section class="section section-alt" id="credentials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Credentials</p>
+      <h2>Paper trail.</h2>
+    </div>
+    <div class="creds reveal">
+      <div class="cred">
+        <div>
+          <h3>Associate Data Engineer</h3>
+          <p class="issuer">DataCamp — certification</p>
+        </div>
+        <span class="year">2026</span>
+      </div>
+      <div class="cred">
+        <div>
+          <h3>Data Engineering Zoomcamp</h3>
+          <p class="issuer">DataTalksClub — end-to-end pipeline bootcamp</p>
+        </div>
+        <span class="year">2026</span>
+      </div>
+      <div class="cred">
+        <div>
+          <h3>MSc, Computer Science &amp; Electrical Engineering</h3>
+          <p class="issuer">Tampere University</p>
+        </div>
+        <span class="year">in progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal" style="justify-content:center">Contact</p>
+    <h2 class="reveal">Let's build something <span class="accent">reliable</span>.</h2>
+    <a class="email-link reveal" href="mailto:hamza.sentongo@tuni.fi">hamza.sentongo@tuni.fi</a>
+    <div class="contact-cta reveal">
+      <a class="btn" href="https://github.com/HAMm-CODE" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/hamza-sentongo-55483a243" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-solid" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+    <span>© 2026 Hamza Sentongo · Tampere, Finland</span>
+    <span class="mono">set in bricolage grotesque · seven shades of green</span>
+  </div>
+</footer>
+
+<script>
+/* scroll progress + nav border */
+const bar = document.getElementById('progress');
+const header = document.querySelector('header');
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + '%';
+  header.classList.toggle('scrolled', h.scrollTop > 10);
+}, { passive: true });
+
+/* scroll reveals */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* pipeline log ticker */
+const logEl = document.getElementById('log');
+const lines = [
+  'spark-submit daily_sales.py',
+  'reading source: events/2026-07-17 …',
+  'schema validated ✓ 14 columns',
+  'dedup + currency conversion applied',
+  'writing delta table: sales_gold',
+  'OPTIMIZE complete · files compacted',
+  '1.2M rows served · 0 failures'
+];
+let li = 0;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduced) {
+  setInterval(() => {
+    li = (li + 1) % lines.length;
+    logEl.style.opacity = 0;
+    setTimeout(() => { logEl.textContent = lines[li]; logEl.style.opacity = 1; }, 220);
+  }, 2600);
+  logEl.style.transition = 'opacity .22s ease';
+}
+</script>
+
+</body>
+</html>
