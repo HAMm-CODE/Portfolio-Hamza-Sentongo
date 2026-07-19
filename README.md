@@ -4,7 +4,7 @@
 
 ![Portfolio screenshot](hero-section.png)
 
-My personal portiolio as an early-career data engineer in Tampere, Finland — ETL/ELT pipelines with Python, SQL and PySpark on Databricks, Delta Lake and Azure.
+My personal portfolio as an early-career data engineer in Tampere, Finland — ETL/ELT pipelines with Python, SQL and PySpark on Databricks, Delta Lake and Azure.
 
 
 ## Contact
