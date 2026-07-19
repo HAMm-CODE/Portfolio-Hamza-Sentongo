@@ -1,78 +1,35 @@
-# Hamza Sentongo Portfolio
+# Hamza Sentongo — Portfolio
 
-This pack customizes the [Dante Astro Theme](https://github.com/JustGoodUI/dante-astro-theme) into a minimal professional portfolio for Hamza Sentongo.
+**Live site:** [hamza-sentongo.netlify.app](https://hamza-sentongo.netlify.app)
 
-It includes:
+![Portfolio screenshot](screenshot.png)
 
-- `src/data/site-config.ts` — updated name, bio, navigation, links, hero section, and disabled newsletter
-- `src/content/projects/` — data engineering project pages
-- `src/content/pages/about.md` — about, skills, experience, education, certification
-- `src/content/pages/contact.md` — contact and resume links
-- `src/content/blog/` — one starter portfolio note
-- `public/` — placeholder avatar, hero image, social preview, and resume PDF if available
+Personal portfolio of Hamza Sentongo, an early-career data engineer in Tampere, Finland — ETL/ELT pipelines with Python, SQL and PySpark on Databricks, Delta Lake and Azure.
 
-## Recommended setup
+## About the site
 
-```bash
-git clone https://github.com/JustGoodUI/dante-astro-theme.git hamza-portfolio
-cd hamza-portfolio
+A single-file static site: no framework, no dependencies, no build step. Dark green theme with an animated data-pipeline hero, scroll reveals, and a live log ticker — all plain HTML, CSS and vanilla JavaScript.
+
+- **Type:** Bricolage Grotesque (display) · Instrument Sans (body) · IBM Plex Mono (data)
+- **Accessibility:** respects `prefers-reduced-motion`, visible keyboard focus, responsive down to mobile
+
+## Structure
+
+```
+index.html    the entire site (markup, styles, scripts)
+resume.pdf    downloadable résumé
 ```
 
-Delete the demo content:
+## Run locally
 
-```bash
-rm -f src/content/projects/project-*.md
-rm -f src/content/blog/post-*.md
-```
+Open `index.html` in a browser. That's it.
 
-Copy the files from this pack into the cloned theme, preserving the folder structure:
+## Deploy
 
-```bash
-cp -R path/to/hamza-dante-astro-portfolio/src/* src/
-cp -R path/to/hamza-dante-astro-portfolio/public/* public/
-```
+Hosted on Netlify with no build command and publish directory set to `/`. Every push to `main` deploys automatically.
 
-Then run:
+## Contact
 
-```bash
-npm install
-npm run dev
-```
-
-Open the local URL shown in your terminal, usually:
-
-```text
-http://localhost:4321
-```
-
-## Windows PowerShell version
-
-```powershell
-git clone https://github.com/JustGoodUI/dante-astro-theme.git hamza-portfolio
-cd hamza-portfolio
-Remove-Item src/content/projects/project-*.md
-Remove-Item src/content/blog/post-*.md
-Copy-Item -Recurse path\to\hamza-dante-astro-portfolio\src\* src\ -Force
-Copy-Item -Recurse path\to\hamza-dante-astro-portfolio\public\* public\ -Force
-npm install
-npm run dev
-```
-
-## What to edit next
-
-1. Replace `public/avatar-placeholder.svg` with a real professional photo named `avatar.jpg` or keep the SVG.
-2. If you add a real avatar image, update `src/data/site-config.ts`:
-
-```ts
-avatar: {
-  src: '/avatar.jpg',
-  alt: 'Hamza Sentongo',
-},
-```
-
-3. Update the `website` field in `src/data/site-config.ts` after deployment.
-4. Add GitHub links to each project page once the repos are ready.
-
-## Suggested deployment
-
-Use Netlify first because Dante already promotes a simple Netlify deployment flow. GitHub Pages also works, but Astro sites sometimes need extra configuration depending on the repository name.
+- Email: hamza.sentongo@tuni.fi
+- GitHub: [@HAMm-CODE](https://github.com/HAMm-CODE)
+- LinkedIn: [hamza-sentongo](https://www.linkedin.com/in/hamza-sentongo-55483a243)
